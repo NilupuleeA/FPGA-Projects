@@ -54,7 +54,7 @@ module adder_AXI_tb();
         // Test stimulus
         repeat(10) begin
             @(posedge clk);
-                s_data = $urandom_range(0, 255);
+                s_data = $urandom_range(0, 10);
                 s_valid = 1;
                 m_ready = 1;
         end
@@ -63,7 +63,7 @@ module adder_AXI_tb();
 
         repeat(20) begin
             @(posedge clk);
-                s_data = $urandom_range(0, 255);
+                s_data = $urandom_range(0, 10);
                 s_valid = 1;
         end
     end
