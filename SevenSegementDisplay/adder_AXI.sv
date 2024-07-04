@@ -37,6 +37,10 @@ module adder_AXI #(
     // Internal signals
     logic [WIDTH + $clog2(N) - 1:0] sum;
     logic [3:0] modulo_result, remainder_result;
+<<<<<<< Updated upstream
+=======
+    logic [$clog2(N)-1:0] count;
+>>>>>>> Stashed changes
 
     // Seven segment display function
     function [6:0] sevenSegment(
@@ -71,9 +75,20 @@ module adder_AXI #(
             if (s_valid && s_ready) begin
                 sum <= sum + s_data;
                 m_valid <= 1;
+<<<<<<< Updated upstream
             end else if (m_ready && m_valid) begin
                 m_valid <= 0;
             end
+=======
+                count <= count + 1;
+            end else if (m_ready && m_valid) begin
+                m_valid <= 0;
+            end else if (count == N) begin
+                sum <= 0;
+                count <= 0;
+            end
+
+>>>>>>> Stashed changes
         end
     end
 
