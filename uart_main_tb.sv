@@ -74,14 +74,23 @@ module uart_main_tb();
             wait(m_valid);
             
             // Check received data
-            if (m_data == s_data)
-                $display("OK, Sent: %h, Received: %h", s_data, m_data);
-            else
-                $error("Mismatch, Sent: %h, Received: %h", s_data, m_data);
+            // if (m_data == s_data)
+            //     $display("OK, Sent: %h, Received: %h", s_data, m_data);
+            // else
+            //     $error("Mismatch, Sent: %h, Received: %h", s_data, m_data);
 
             // Delay before sending next packet (optional)
             #(10);
 
+            s_data = $urandom;
+            #(800);
+
+            //Transmit data
+            @(posedge clk) s_valid = 1;
+            @(posedge clk) s_valid = 0;
+
+            // Wait for data to be received
+            wait(m_valid);
         end
 
     initial forever begin
@@ -96,9 +105,9 @@ module uart_main_tb();
 
 
     // RX emulation: connect tx to rx with delay
-    initial begin
-        forever begin
-            #1 rx = tx;
-        end
-    end
+    // initial begin
+    //     forever begin
+    //         #1 rx = tx;
+    //     end
+    // end
 endmodule

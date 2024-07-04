@@ -33,10 +33,12 @@ module uart_main #(
     output logic tx,
     output logic m_valid,
     output logic [W_OUT-1:0] m_data
+
 );
 
     // Intermediate signals
     logic tx_ready;
+    logic m;
 
     // RX instance
     uart_rx #(
@@ -46,7 +48,7 @@ module uart_main #(
     ) uart_rx_inst (
         .clk(clk),
         .rstn(rstn),
-        .rx(rx),
+        .rx(m),
         .m_valid(m_valid),
         .m_data(m_data)
     );
@@ -61,7 +63,7 @@ module uart_main #(
         .rstn(rstn),
         .s_valid(s_valid),
         .s_data(s_data),
-        .tx(tx),
+        .tx(m),
         .s_ready(tx_ready)
     );
 
