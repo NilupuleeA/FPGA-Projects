@@ -1,4 +1,0 @@
-Time resolution is 1 ps
-Time: 35000 | Sum: 18 | m_data[0]: 1000 | m_data[1]: 1
-Time: 55000 | Sum: 52 | m_data[0]: 0 | m_data[1]: 111
-$finish called at time : 105 ns : File "C:/Users/pasir/Desktop/Github/AnalogComputer/UART/SevenSegementDisplay/adder_AXI_tb.sv" Line 64
