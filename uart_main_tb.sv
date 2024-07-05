@@ -48,8 +48,7 @@ module uart_main_tb();
         .s_data(s_data),
         .tx(tx),
         .m_valid(m_valid),
-        .m_data(m_data),
-        .tx_ready(tx_ready)
+        .m_data(m_data)
     );
 
     // Test sequence
@@ -86,10 +85,11 @@ module uart_main_tb();
             #(10);
 
             s_data = $urandom;
-            //#(800);
+            #(800);
 
             //Transmit data
             @(posedge clk) s_valid = 1;
+            #(20);
             @(posedge clk) s_valid = 0;
 
             // Wait for data to be received
