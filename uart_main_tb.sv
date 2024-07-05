@@ -68,16 +68,17 @@ module uart_main_tb();
 
             // Transmit data
             @(posedge clk) s_valid = 1;
+            #(20);
             @(posedge clk) s_valid = 0;
 
             // Wait for data to be received
             wait(m_valid);
 
             if (m_valid) begin
-            if (m_data == s_data) 
-                $display("OK, %b", m_data);
-            else 
-                $error("Sent %b, got %b", s_data, m_data);
+                if (m_data == s_data) 
+                    $display("OK, %b", m_data);
+                else 
+                    $error("Sent %b, got %b", s_data, m_data);
             end
 
             // Delay before sending next packet (optional)
@@ -88,16 +89,17 @@ module uart_main_tb();
 
             //Transmit data
             @(posedge clk) s_valid = 1;
+            #(20);
             @(posedge clk) s_valid = 0;
 
             // Wait for data to be received
             wait(m_valid);
 
             if (m_valid) begin
-            if (m_data == s_data) 
-                $display("OK, %b", m_data);
-            else 
-                $error("Sent %b, got %b", s_data, m_data);
+                if (m_data == s_data) 
+                    $display("OK, %b", m_data);
+                else 
+                    $error("Sent %b, got %b", s_data, m_data);
             end
     end
 
