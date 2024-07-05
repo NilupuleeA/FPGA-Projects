@@ -36,10 +36,6 @@ module uart_main #(
 
 );
 
-    // Intermediate signals
-    logic tx_ready;
-    logic m;
-
     // RX instance
     uart_rx #(
         .CLOCKS_PER_PULSE(CLOCKS_PER_PULSE),
@@ -48,7 +44,7 @@ module uart_main #(
     ) uart_rx_inst (
         .clk(clk),
         .rstn(rstn),
-        .rx(m),
+        .rx(rx),
         .m_valid(m_valid),
         .m_data(m_data)
     );
@@ -63,8 +59,8 @@ module uart_main #(
         .rstn(rstn),
         .s_valid(s_valid),
         .s_data(s_data),
-        .tx(m),
-        .s_ready(tx_ready)
+        .tx(tx),
+        .s_ready(s_ready)
     );
 
 endmodule
