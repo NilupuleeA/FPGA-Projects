@@ -32,9 +32,14 @@ module uart_main #(
     input logic [NUM_WORDS-1:0][BITS_PER_WORD-1:0] s_data,
     output logic tx,
     output logic m_valid,
-    output logic [W_OUT-1:0] m_data
+    output logic [W_OUT-1:0] m_data,
+    output logic tx_ready
 
 );
+
+    // Intermediate signals
+    logic tx_ready;
+    logic m;
 
     // RX instance
     uart_rx #(
