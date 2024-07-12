@@ -42,16 +42,16 @@ module uart_tx #(
     logic [$clog2(NUM_WORDS*PACKET_SIZE)-1:0] c_pulses;
 
     always_comb begin
-        s_packets = '1; 
-        for (int iw = 0; iw < NUM_WORDS; iw = iw + 1) begin
+        s_packets = '1; // fill s packet with ones
+        for (int iw = 0; iw < NUM_WORDS; iw = iw + 1) begin  //calculate parity bit for each word
             parity_bit = ^s_data[iw]; 
             s_packets[iw][BITS_PER_WORD+1:0] = {parity_bit, s_data[iw], 1'b0}; 
             end
-        tx = m_packets[0]; 
+        tx = m_packets[0];   //assign tx with data to be send
     end
 
     always_ff @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
+        if (!rstn) begin     
             state <= IDLE;
             m_packets <= '1;
             {c_pulses, c_clocks} <= 0;
