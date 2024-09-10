@@ -131,3 +131,33 @@ The state machine controls the reception and decoding of the UART data:
   - Computes the parity of the received data using XOR operation.
   - Compares the computed parity with the received parity bit to detect errors.
 
+# UART Communication on DE0-Nano FPGA Board
+
+To implement UART communication using the DE0-nano FPGA board, we followed these steps:
+
+### 1. Designed the UART Module
+- Developed Verilog modules for both UART transmitter and receiver.
+- **UART Transmitter**: Converts parallel data into serial format, handles start and stop bits, and includes optional parity checking.
+- **UART Receiver**: Converts serial data back into parallel format, detects start and stop bits, and performs parity checking if enabled.
+
+### 2. Developed a Testbench
+- Created a testbench to simulate the UART modules.
+- Verified functionality with stimulus and responses to ensure proper operation before hardware testing.
+
+### 3. Assigned Pins
+- Mapped UART signals to the appropriate pins on the DE0-nano FPGA board.
+- Ensured correct pin assignments in the FPGA design tool for proper signal interfacing.
+
+### 4. Performed Simulation and Verification
+- Ran simulations to verify that the UART modules function correctly at the desired baud rate.
+- Checked data transmission and reception accuracy.
+
+### 5. Set Up Hardware
+- Used one DE0-nano FPGA board as the UART transmitter and another as the UART receiver.
+- Connected the UART transmit pin from the transmitter board to the UART receive pin on the receiver board.
+
+### 6. Tested Communication
+- Loaded the design onto both FPGA boards.
+- Tested UART communication to ensure data was transmitted and received correctly.
+- Verified that the baud rates matched for successful communication.
+
