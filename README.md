@@ -27,3 +27,4 @@
 - After the stop bit(s) are sent, the UART line returns to an **idle state**, which is a **logic high (1)**.
 - The line remains idle until the next transmission begins with a new start bit.
 - The idle state allows the system to differentiate between periods of activity and inactivity on the communication line.
+![uart3](https://github.com/user-attachments/assets/6b695315-0928-48f0-bccb-f537b0b06a23)
