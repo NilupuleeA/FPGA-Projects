@@ -73,7 +73,61 @@ The state machine controls the data transmission process:
 - **Error Detection**:
   - The receiver checks the parity bit against the received data to detect transmission errors. A mismatch indicates an error occurred during transmission.
 
-## Example Usage
+# UART Receiver Module
 
-This module is suitable for applications requiring UART communication, including microcontroller-based systems. It provides reliable data transfer with optional parity checking for enhanced error detection.
+## Parameters
+
+- **CLOCKS_PER_PULSE**: Defines the baud rate based on the clock frequency and desired baud rate. Determines how many clock cycles are used for one baud period.
+- **BITS_PER_WORD**: Number of data bits per word (typically 8 bits).
+- **W_OUT**: Total width of the output data, determined by the application.
+
+## Ports
+
+- **Inputs**:
+  - `clk`: Clock signal input.
+  - `rstn`: Active-low reset signal.
+  - `rx`: Serial data input (received data).
+
+- **Outputs**:
+  - `m_valid`: Indicates that the received data on `m_data` is valid.
+  - `m_data`: Parallel data output after receiving and decoding the serial data.
+
+## Functionality
+
+### State Machine
+
+The state machine controls the reception and decoding of the UART data:
+
+1. **IDLE State**:
+   - The module waits for the start bit (logic low `0`) to signal the beginning of a new data frame.
+   - Once the start bit is detected, it transitions to the **START** state.
+
+2. **START State**:
+   - Waits for half a baud period to synchronize with the start bit.
+   - After the delay, it transitions to the **DATA** state.
+
+3. **DATA State**:
+   - Reads the data bits serially.
+   - Uses counters (`c_clocks` and `c_bits`) to manage timing and bit position.
+   - After receiving all data bits, it transitions to the **PARITY** state.
+
+4. **PARITY State**:
+   - Checks the parity bit for error detection.
+   - Computes the parity of the received data bits and compares it with the received parity bit (`rx`).
+   - If the parity matches, it moves to the **END** state. Otherwise, it returns to **IDLE**.
+
+5. **END State**:
+   - Completes the reception process and returns to the **IDLE** state, ready to receive the next data frame.
+
+### Counters
+
+- **Clock Counter (`c_clocks`)**: Counts clock cycles to manage baud rate timing.
+- **Bit Counter (`c_bits`)**: Counts data bits received in each word.
+- **Word Counter (`c_words`)**: Counts the number of words received.
+
+### Parity Implementation
+
+- **Parity Bit Checking**:
+  - Computes the parity of the received data using XOR operation.
+  - Compares the computed parity with the received parity bit to detect errors.
 
